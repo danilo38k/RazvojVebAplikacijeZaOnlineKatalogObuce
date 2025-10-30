@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ObucaDanilo.Models.Product>
+@{
+    ViewData["Title"] = "Proizvodi";
+    Layout = "_AdminLayout";
+}
+
+<h1>Proizvodi (samo za pregled)</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Slika</th>
+            <th>Naziv</th>
+            <th>Cena</th>
+            <th>Kategorije</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@item.ImageUrl" width="50" height="50" />
+                </td>
+                <td>@item.Title</td>
+                <td>@item.Price.ToString("N0") RSD</td>
+                <td>
+                    @string.Join(", ", item.ProductCategories.Select(pc => pc.Category.Name))
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

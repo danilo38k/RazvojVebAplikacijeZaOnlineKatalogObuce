@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Manager Panel";
+    Layout = "_ManagerLayout";
+}
+
+<h1>@ViewData["Title"]</h1>
+<p>Dobrodošli, <strong>@User.FindFirst(System.Security.Claims.ClaimTypes.GivenName)?.Value</strong>!</p>
+
+<div class="list-group">
+    <a class="list-group-item list-group-item-action" asp-controller="Manager" asp-action="Products">
+        <i class="fas fa-box"></i> Upravljaj proizvodima
+    </a>
+    <a class="list-group-item list-group-item-action" asp-controller="Manager" asp-action="AddProduct">
+        <i class="fas fa-plus"></i> Dodaj proizvod
+    </a>
+</div>

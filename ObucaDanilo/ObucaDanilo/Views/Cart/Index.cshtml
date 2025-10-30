@@ -1,0 +1,113 @@
+﻿@model List<ObucaDanilo.Models.ViewModels.CartViewModel>
+@{
+    ViewData["Title"] = "Korpa";
+}
+
+<div class="container">
+    <h1>Korpa</h1>
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info">
+            Vaša korpa je prazna.
+            <a asp-controller="Home" asp-action="Index">Nastavite kupovinu</a>
+        </div>
+    }
+    else
+    {
+        <table class="table" id="cartTable">
+            <thead>
+                <tr>
+                    <th>Proizvod</th>
+                    <th>Cena</th>
+                    <th>Količina</th>
+                    <th>Ukupno</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var roundedPrice = decimal.Round(item.ProductPrice, 0, MidpointRounding.AwayFromZero);
+                    var total = decimal.Round(item.TotalPrice, 0, MidpointRounding.AwayFromZero);
+
+                    <tr data-id="@item.Id" data-price="@roundedPrice">
+                        <td>
+                            <img src="@item.ProductImage" width="50" height="50" class="me-2" />
+                            @item.ProductTitle
+                        </td>
+                        <td>@roundedPrice.ToString("N0") RSD</td>
+                        <td>
+                            <input type="number" class="form-control quantity-input"
+                                   value="@item.Quantity" min="1" style="width: 80px;">
+                        </td>
+                        <td class="item-total">@total.ToString("N0") RSD</td>
+                        <td>
+                            <form asp-controller="Cart" asp-action="RemoveFromCart" method="post">
+                                <input type="hidden" name="cartItemId" value="@item.Id" />
+                                <button type="submit" class="btn btn-sm btn-danger">Ukloni</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                @{
+                    var grand = decimal.Round(Model.Sum(i => i.TotalPrice), 0, MidpointRounding.AwayFromZero);
+                }
+                <tr>
+                    <td colspan="3" class="text-end"><strong>Ukupno:</strong></td>
+                    <td id="grandTotal"><strong>@grand.ToString("N0") RSD</strong></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="text-end mb-4">
+            <form asp-controller="Cart" asp-action="ClearCart" method="post" class="d-inline">
+                <button type="submit" class="btn btn-danger me-2">Isprazni korpu</button>
+            </form>
+            <a asp-controller="Order" asp-action="Checkout" class="btn btn-success">Nastavi na plaćanje</a>
+        </div>
+
+        <!--  Nazad dugme -->
+        <div class="text-start mt-4">
+            <button type="button" class="btn btn-secondary" onclick="history.back()">
+                <i class="fas fa-arrow-left"></i> Nazad
+            </button>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        // auto‑update totals and sync with server
+        $(document).on('input', '.quantity-input', async function () {
+            const row = $(this).closest('tr');
+            const price = parseFloat(row.data('price'));
+            const qty = parseInt($(this).val());
+            const itemId = row.data('id');
+
+            // local update of subtotals (rounded)
+            const total = Math.round(price * qty)
+                .toLocaleString('sr-RS') + ' RSD';
+            row.find('.item-total').text(total);
+
+            // recalc grand total locally
+            let grand = 0;
+            $('#cartTable tbody tr').each(function () {
+                const p = parseFloat($(this).data('price'));
+                const q = parseInt($(this).find('.quantity-input').val());
+                grand += Math.round(p * q);
+            });
+            $('#grandTotal').text(grand.toLocaleString('sr-RS') + ' RSD');
+
+            // async save to server
+            await fetch('/Cart/UpdateCartItem', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `cartItemId=${itemId}&quantity=${qty}`
+            });
+        });
+    </script>
+}

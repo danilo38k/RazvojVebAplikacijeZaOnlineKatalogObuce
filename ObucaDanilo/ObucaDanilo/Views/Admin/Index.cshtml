@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Admin Panel";
+    Layout = "_AdminLayout";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Dobrodošli, <strong>@User.FindFirst(System.Security.Claims.ClaimTypes.GivenName)?.Value</strong>!</p>
+
+<div class="list-group">
+    <a class="list-group-item list-group-item-action"
+       asp-controller="Admin" asp-action="Categories">
+        <i class="fas fa-tags"></i> Upravljaj kategorijama
+    </a>
+    <a class="list-group-item list-group-item-action"
+       asp-controller="Admin" asp-action="Users">
+        <i class="fas fa-users"></i> Upravljaj korisnicima
+    </a>
+</div>

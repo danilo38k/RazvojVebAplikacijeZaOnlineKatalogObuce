@@ -1,0 +1,29 @@
+﻿@model ObucaDanilo.Models.Category
+@{
+    ViewData["Title"] = "Dodaj kategoriju";
+    Layout = "_AdminLayout";
+}
+
+<h1>Dodaj kategoriju</h1>
+
+<form asp-action="AddCategory" method="post">
+    @Html.AntiForgeryToken()
+    @await Html.PartialAsync("_Alerts")
+
+    <div class="form-group">
+        <label asp-for="Name">Naziv</label>
+        <input asp-for="Name" class="form-control" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Opis</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    @* Ne šaljemo DisplayOrder iz forme – računa se na serveru *@
+
+    <button type="submit" class="btn btn-primary">Sačuvaj</button>
+    <a asp-controller="Admin" asp-action="Index" class="btn btn-secondary">Nazad</a>
+</form>

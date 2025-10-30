@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = ViewBag.CategoryName;
+}
+
+<h2 class="mb-4">@ViewBag.CategoryName</h2>
+
+<div id="productContainer" class="d-flex flex-column gap-3">
+    @* Proizvodi se učitavaju putem JS *@
+</div>
+
+<div id="loading" class="text-center my-3" style="display:none;">
+    <div class="spinner-border text-secondary"></div>
+    <p>Učitavanje proizvoda...</p>
+</div>
+
+<!-- ✨ Nazad dugme -->
+<div class="text-center mt-4">
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Nazad na početnu
+    </a>
+</div>
+
+@section Scripts {
+    <script>
+        let skip = 0;
+        const take = 8;
+        const categoryId = '@ViewBag.CategoryId';
+        let loading = false;
+
+        async function loadProducts() {
+            if (loading) return;
+            loading = true;
+            $("#loading").show();
+
+            const res = await fetch(`/Product/LoadProducts?categoryId=${categoryId}&skip=${skip}&take=${take}`);
+            const html = await res.text();
+            $("#productContainer").append(html);
+
+            skip += take;
+            $("#loading").hide();
+            loading = false;
+
+            if (!html.trim()) {
+                $(window).off("scroll");
+            }
+        }
+
+        $(document).ready(function () {
+            loadProducts();
+            $(window).scroll(function () {
+                if ($(window).scrollTop() + window.innerHeight >= document.body.scrollHeight - 200) {
+                    loadProducts();
+                }
+            });
+        });
+    </script>
+}

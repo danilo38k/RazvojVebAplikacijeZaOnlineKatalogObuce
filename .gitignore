@@ -1,0 +1,45 @@
+## Visual Studio ##
+.vs/
+[Bb]in/
+[Oo]bj/
+*.user
+*.aps
+*.pch
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.sdf
+*.opensdf
+*.unsuccessfulbuild
+ipch/
+[Dd]ebug*/
+[Rr]elease*/
+Ankh.NoLoad
+
+## .NET ##
+*.acdb
+*.ntf*
+*.ldf
+*.mdf
+*.bak
+*.ghost
+*.launch
+
+## ASP.NET ##
+appsettings.*.json
+!appsettings.json
+
+## OS ##
+Thumbs.db
+.DS_Store

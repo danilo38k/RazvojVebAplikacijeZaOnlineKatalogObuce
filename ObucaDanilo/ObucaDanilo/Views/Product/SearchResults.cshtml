@@ -1,0 +1,32 @@
+﻿@model IEnumerable<ObucaDanilo.Models.ViewModels.ProductViewModel>
+
+@{
+    ViewData["Title"] = "Search results for \"" + ViewBag.SearchTerm + "\"";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        No products found matching "<strong>@ViewBag.SearchTerm</strong>".
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <img src="@product.ImageUrl" class="card-img-top" alt="@product.Title" />
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@product.Title</h5>
+                        <p class="card-text text-primary">@product.Price.ToString("C")</p>
+                        <a asp-controller="Product" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary mt-auto">View Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

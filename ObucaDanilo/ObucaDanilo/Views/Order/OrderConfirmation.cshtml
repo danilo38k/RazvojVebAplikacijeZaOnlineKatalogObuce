@@ -1,0 +1,56 @@
+﻿@model ObucaDanilo.Models.ViewModels.OrderViewModel
+@{
+    ViewData["Title"] = "Potvrda porudžbine";
+}
+
+<div class="container">
+    <div class="alert alert-success">
+        <h1>Hvala na kupovini!</h1>
+        <p>Vaša porudžbina #@Model.Id je primljena i obrađuje se.</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Detalji porudžbine</h3>
+            <p><strong>Datum porudžbine:</strong> @Model.OrderDate.ToString("g")</p>
+            <p><strong>Adresa za isporuku:</strong> @Model.ShippingAddress</p>
+            <p><strong>Status:</strong> @Model.Status</p>
+            <p><strong>Ukupan iznos:</strong> @Model.TotalAmount.ToString("N0") RSD</p>
+        </div>
+
+        <div class="col-md-6">
+            <h3>Stavke porudžbine</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Proizvod</th>
+                        <th>Količina</th>
+                        <th>Cena</th>
+                        <th>Ukupno</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@item.ProductTitle</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.UnitPrice.ToString("N0") RSD</td>
+                            <td>@item.TotalPrice.ToString("N0") RSD</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-end"><strong>Ukupno:</strong></td>
+                        <td><strong>@Model.TotalAmount.ToString("N0") RSD</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Nastavi kupovinu</a>
+    </div>
+</div>

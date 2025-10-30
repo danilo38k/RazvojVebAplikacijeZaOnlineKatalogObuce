@@ -1,0 +1,60 @@
+﻿@using Microsoft.AspNetCore.Authentication.Cookies
+
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin Panel Katalog Obuće</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body>
+    <header>
+        <!-- Minimal identical style as Manager Panel -->
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+            <div class="container d-flex justify-content-between align-items-center">
+                <!-- left side -->
+                <div class="d-flex align-items-center">
+                    <a class="navbar-brand d-flex align-items-center me-3"
+                       asp-controller="Admin" asp-action="Index" title="Admin Panel">
+                        🛠️ Admin Panel
+                    </a>
+                    <a class="nav-link text-white d-flex align-items-center"
+                       asp-controller="Admin" asp-action="Index">
+                        <i class="fas fa-home me-1"></i> Početna
+                    </a>
+                </div>
+                <!-- right side -->
+                <form asp-controller="Account" asp-action="Logout"
+                      method="post" class="m-0 p-0">
+                    <button type="submit"
+                            class="nav-link btn btn-link text-white p-0 d-flex align-items-center">
+                        <i class="fas fa-sign-out-alt me-2"></i> Odjava
+                    </button>
+                </form>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @await Html.PartialAsync("_Alerts")
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted mt-auto py-3 bg-light">
+        <div class="container text-center">
+            &copy; @DateTime.Now.Year Katalog Obuće
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
