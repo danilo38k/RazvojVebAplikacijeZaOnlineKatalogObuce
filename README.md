@@ -1,4 +1,4 @@
-# 🛍️ Katalog Obuće - ASP.NET Core MVC Aplikacija
+# Katalog Obuće - ASP.NET Core MVC Aplikacija
 
 ![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-6.0%2B-purple)
 ![EF Core](https://img.shields.io/badge/Entity_Framework_Core-7.0-green)
@@ -9,14 +9,14 @@ Web aplikacija za online katalog obuće sa administracijom kategorija/korisnika,
 
 ---
 
-## 🚀 Brzo pokretanje
+##  Brzo pokretanje
 
-### 📋 Preduslovi
+###  Preduslovi
 - .NET SDK 6.0+ (preporučeno 8.0)
 - SQL Server (LocalDB, Developer ili Express)
 - Visual Studio 2022
 
-### 🧩 Koraci
+###  Koraci
 1. Kloniraj repozitorijum.
 2. U appsettings.json podesi konekcioni string (ConnectionStrings:DefaultConnection).
 3. U SQL Server-u pokreni skriptu iz foldera `database/` (kreira šemu i početne podatke).
@@ -28,7 +28,7 @@ Web aplikacija za online katalog obuće sa administracijom kategorija/korisnika,
 
 ---
 
-## 🔐 Demo nalozi
+##  Demo nalozi
 
 - Admin: `admin@obuca.com` / `admin123`  
 - Manager: `manager@obuca.com` / `manager123`
@@ -36,7 +36,7 @@ Web aplikacija za online katalog obuće sa administracijom kategorija/korisnika,
 
 ---
 
-## ✅ Funkcionalnosti
+##  Funkcionalnosti
 
 - Pregled proizvoda po kategorijama, detalji i pretraga
 - Korpa i checkout, pregled porudžbina
@@ -50,7 +50,7 @@ Web aplikacija za online katalog obuće sa administracijom kategorija/korisnika,
 
 ---
 
-## 🛠️ Tehnologije
+##  Tehnologije
 
 - ASP.NET Core MVC
 - Entity Framework Core (SQL Server)
@@ -59,7 +59,7 @@ Web aplikacija za online katalog obuće sa administracijom kategorija/korisnika,
 
 ---
 
-## 🗂️ Struktura projekta (ukratko)
+##  Struktura projekta (ukratko)
 
 - `Controllers/` – Admin, Manager, Account, Product, Cart, Order, Home
 - `Models/`, `ViewModels/`
@@ -71,7 +71,7 @@ Web aplikacija za online katalog obuće sa administracijom kategorija/korisnika,
 
 ---
 
-## ▶️ Pokretanje (detaljno)
+##  Pokretanje (detaljno)
 
 - Konekcioni string (primer):
     {
@@ -86,7 +86,7 @@ Web aplikacija za online katalog obuće sa administracijom kategorija/korisnika,
 ---
 
 
-## 🖼️ Slike proizvoda
+##  Slike proizvoda
 
 - Upload ide u `wwwroot/images`
 - Ako deployuješ na hosting, obezbedi write permisije za taj folder
